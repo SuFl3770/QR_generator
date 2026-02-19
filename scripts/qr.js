@@ -2,8 +2,9 @@ const state = {
   text: "",
   ecc: "H",
   fg: "#000000",
-  bg: "#ffffff",
-  logo: ""
+  bg: "#ffffffff",
+  url: "",
+  canDownload: false
 };
 
 
@@ -70,52 +71,10 @@ async function generateQR() {
     }
   );
 
+  state.url = URL.createObjectURL(new Blob([svgString], { type: "image/svg+xml" }));
   const preview = document.getElementById("preview");
   preview.innerHTML = svgString;
-
-  const svg = preview.querySelector("svg");
-
-  // 템플릿 padding
-  svg.style.background = state.bg;
-  svg.style.padding = "20px";
-  svg.style.borderRadius = "12px";
-
-
 }
-
-
-// --------------------
-// 로고 삽입
-// --------------------
-function insertLogo(svg) {
-
-  const box = svg.viewBox.baseVal;
-  const size = getSafeLogoSize(box.width, state.ecc);
-
-  const svgNS = "http://www.w3.org/2000/svg";
-  const img = document.createElementNS(svgNS, "image");
-
-  img.setAttribute(
-    "href",
-    "assets/logos/" + state.logo
-  );
-
-  img.setAttribute("width", size);
-  img.setAttribute("height", size);
-
-  img.setAttribute(
-    "x",
-    box.width/2 - size/2
-  );
-
-  img.setAttribute(
-    "y",
-    box.height/2 - size/2
-  );
-
-  svg.appendChild(img);
-}
-
 
 // --------------------
 // UI → State
@@ -125,6 +84,9 @@ function bindUI() {
   document.getElementById("text")
     .addEventListener("input", e => {
       state.text = e.target.value;
+      if(e.target.value === "") {
+        
+      }
       update();
     });
 
@@ -148,26 +110,31 @@ function bindUI() {
 
 }
 
+// Download QR
+function download(){
+  const link = document.createElement('a');
+  link.href = state.url;
+  link.download = 'QR.svg';
 
-function test(){
-  const input = document.getElementById("fileInput");
-  const preview = document.getElementById("preview");
-
-  input.addEventListener("change", () => {
-    const file = input.files[0];
-    if (!file) return;
-
-    insertLogo(file)
-  });
+  document.body.appendChild(link);
+  link.click();
 }
 
-
+function viewDownloadBtn(){
+  if(state.text === "") {
+    downloadBtn.style.display = "none";
+  } else {
+    downloadBtn.style.display = "inline";
+    state.canDownload = true;
+  }
+}
 // --------------------
 // 업데이트 파이프라인
 // --------------------
 function update() {
   stateToURL();
   generateQR();
+  viewDownloadBtn();
 }
 
 
@@ -182,6 +149,8 @@ window.addEventListener("load", () => {
   document.getElementById("ecc").value = state.ecc;
   document.getElementById("fg").value = state.fg;
   document.getElementById("bg").value = state.bg;
+  document.getElementById("downloadBtn").addEventListener('click',download);
+  const downloadBtn = document.getElementById("downloadBtn");
 
   bindUI();
   generateQR();

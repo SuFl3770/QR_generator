@@ -45,3 +45,21 @@ ul{
     margin-top: 15px;
     color: #77ec77;
 }
+
+#downloadBtn{
+    display: none;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 1.2em;
+    color: #f4f4f4;
+    background-color: cornflowerblue;
+    transition: background-color 0.2s ease;
+    border: none;
+    border-radius: 8px;
+}
+
+#downloadBtn:hover{
+    background-color: royalblue;
+    cursor: pointer;
+}

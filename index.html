@@ -11,28 +11,26 @@
 <body>
 
 <div class="container">
-
-<h1 id="title">QR 생성기</h1>
-    <input id="text" placeholder="텍스트 / URL 입력" />
-    <ul>
-
-        <li><div class="options">
-            <label>에러 검증 코드 : </label>
-            <select id="ecc">
-            <option>L</option>
-            <option>M</option>
-            <option>Q</option>
-            <option selected>H (권장)</option>
-            </select>
-            </li>
-
-        <li><label>QR 색상 : </label> <input type="color" id="fg" value="#000000" /></li>
-
-        <li><label>배경 색상 : </label> <input type="color" id="bg" value="#ffffff" /></li>
-
-    </ul>
-    <div id="preview"></div>
-    </div>
+    <h1 id="title">QR 생성기</h1>
+        <input id="text" placeholder="텍스트 / URL 입력" />
+        <div class="options">
+            <ul>
+                <li>
+                    <label>에러 검증 코드 : </label>
+                    <select id="ecc">
+                    <option value="L">작게</option>
+                    <option value="M">중간</option>
+                    <option value="Q">크게</option>
+                    <option value="H" selected>최대 (권장)</option>
+                    </select>
+                </li>
+                <li><label>QR 색상 : </label> <input type="color" id="fg" value="#000000" /></li>
+                <li><label>배경 색상 : </label> <input type="color" id="bg" value="#ffffff" /></li>
+            </ul>
+        </div>
+        <div id="preview"></div>
+        <button id="downloadBtn">다운로드</button>
+</div>
 <a href="https://github.com/SuFl3770/QR_generator" id="link">Github</a>
 
 </body>
