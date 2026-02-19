@@ -9,6 +9,6 @@ All user requests are processed directly on the client and are not stored on the
 Just visit https://qr.sufl.cat
 
 ### Offline
-1. Download the source code.
+1. Download the [source code](https://github.com/SuFl3770/QR_generator/releases/tag/release).
 2. Run index.html.
 
